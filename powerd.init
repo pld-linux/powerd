@@ -3,9 +3,9 @@
 # pwerdd	Start/Stop James Brents power daemon.
 #
 # chkconfig:	345 75 65
-# description:	The power daemon provides a means of determining when the 
-#		power is off, wether through a serial port connected on 
-#		this machine, or a remote server, and allows the safe 
+# description:	The power daemon provides a means of determining when the \
+#		power is off, wether through a serial port connected on \
+#		this machine, or a remote server, and allows the safe \
 #		shutdown of the machine.
 # processname:	powerd
 # pidfile:	/var/run/powerd.pid
