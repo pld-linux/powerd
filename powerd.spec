@@ -1,6 +1,6 @@
 Summary:	Powerd is a UPS monitoring program to safely shutdown unattended
 Name:		powerd
-Version:	1.9.9
+Version:	2.0.0
 Release:	1
 Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
 URL:		http://power.sourceforge.net
