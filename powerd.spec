@@ -6,6 +6,7 @@ Release:	3
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
+# Source0-md5:	de283f67a1a64dee59d8f52c4c094569
 Source1:	%{name}.init
 URL:		http://power.sourceforge.net/
 Prereq:		rc-scripts
