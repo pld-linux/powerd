@@ -11,7 +11,6 @@ Source1:	%{name}.init
 URL:		http://power.sourceforge.net/
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Obsoletes:	nut
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
