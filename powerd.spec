@@ -1,4 +1,5 @@
 Summary:	Powerd is a UPS monitoring program to safely shutdown unattended
+Summary(pl):	Powerd jest programem do monitorowania UPS'ów
 Name:		powerd
 Version:	2.0.2
 Release:	1
@@ -10,13 +11,20 @@ Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-
 %description
 Powerd is an effective power daemon that can monitor a UPS and safely
 shutdown the computer. It can also notify other powerd's on the
 network that may not be able to monitor the serial line, so they may
 also safely shutdown. It also has the capability of auto identifying
 your particular UPS and cable configurations.
+
+%description -l pl
+Powerd jest efektywnym demonem, który potrafi monitorowaæ UPS'a oraz
+bezpiecznie zamkn±æ komputer. Potrafi tak¿e zakomunikowaæ inny demonom
+w sieci, które mog± nie potrafiæ monitorowaæ serial line, wiêc mog±
+byæ one tak¿e bezpiecznie zamkniête. Demon ten potrafi automatycznie
+identyfikowaæ twojego UPS'a i konfiguracjê kabla.
+
 
 %prep
 %setup -q
