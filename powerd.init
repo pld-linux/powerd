@@ -4,9 +4,9 @@
 #
 # chkconfig:	345 75 65
 # description:	The power daemon provides a means of determining when the 
-#               power is off, wether through a serial port connected on 
-#               this machine, or a remote server, and allows the safe 
-#               shutdown of the machine.
+#		power is off, wether through a serial port connected on 
+#		this machine, or a remote server, and allows the safe 
+#		shutdown of the machine.
 # processname:	powerd
 # pidfile:	/var/run/powerd.pid
 # config:	/etc/powerd.conf
@@ -18,36 +18,51 @@
 . /etc/sysconfig/network
 
 # Check that networking is up.
-if [ ${NETWORKING} = "no" ]
-then
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		msg_network_down powerd
+		exit 1
+	fi
+else
 	exit 0
 fi
 
 start() {
-        echo -n "Starting powerd: "
-        daemon powerd
-        RETVAL=$?
-        echo
-        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/powerd
+	msg_starting powerd
+	daemon powerd
+	# errorcode not set when failed
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/powerd
 	return $RETVAL
 }
 
 stop() {
-        echo -n "Stopping powerd services: "
-        killproc powerd
-        RETVAL=$?
-        echo
-        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/powerd
+	msg_stopping powerd
+	killproc powerd
+	RETVAL=$?
+	rm -f /var/lock/subsys/powerd
 	return $RETVAL
 }
 
 # See how we were called.
 case "$1" in
   start)
-	start
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/powerd ]; then
+		start
+	else
+		msg_already_running powerd
+		exit 1
+	fi
 	;;
   stop)
-	stop
+	# Check if the service is already running?
+	if [ -f /var/lock/subsys/powerd ]; then
+		stop
+	else
+		msg_not_running powerd
+		exit 1
+	fi
 	;;
   status)
 	status powerd
@@ -58,12 +73,12 @@ case "$1" in
 	;;
   condrestart)
 	if [ -f /var/lock/subsys/powerd ]; then
-            stop
-            start
-        fi
+		stop
+		start
+	fi
 	;;
   *)
-	echo "Usage: powerd {start|stop|status|restart|reload|condrestart}"
+	msg_usage "$0 {start|stop|restart|reload|condrestart|status}"
 	exit 1
 esac
 
