@@ -5,8 +5,6 @@ Version:	2.0.2
 Release:	2
 License:	GPL
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 URL:		http://power.sourceforge.net/
