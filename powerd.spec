@@ -32,7 +32,7 @@ identyfikowaæ twojego UPS'a i konfiguracjê kabla.
 
 %build
 %configure
-%{__make} CFLAGS="%{rpmcflags}" 
+%{__make} CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
