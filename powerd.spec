@@ -2,7 +2,7 @@ Summary:	Powerd is a UPS monitoring program to safely shutdown unattended
 Summary(pl):	Powerd jest programem do monitorowania UPS-ów
 Name:		powerd
 Version:	2.0.2
-Release:	2
+Release:	3
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
@@ -31,12 +31,12 @@ identyfikowaæ twojego UPS'a i konfiguracjê kabla.
 %setup -q
 
 %build
-%configure
+%configure2_13
 %{__make} CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_sbindir}%{_mandir}/man8}
+install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_sbindir},%{_mandir}/man8}
 
 install powerd detectups $RPM_BUILD_ROOT%{_sbindir}
 install powerd.8 $RPM_BUILD_ROOT%{_mandir}/man8
