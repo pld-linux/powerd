@@ -42,7 +42,6 @@ install powerd detectups $RPM_BUILD_ROOT%{_sbindir}
 install powerd.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ups
 
-gzip -9nf SUPPORTED Changelog README FAQ TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,6 +64,6 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc SUPPORTED Changelog README FAQ TODO
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/*/*
