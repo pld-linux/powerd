@@ -1,8 +1,8 @@
 Summary:	Powerd is a UPS monitoring program to safely shutdown unattended
-Summary(pl):	Powerd jest programem do monitorowania UPS'ów
+Summary(pl):	Powerd jest programem do monitorowania UPS-ów
 Name:		powerd
 Version:	2.0.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
@@ -11,6 +11,7 @@ Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 URL:		http://power.sourceforge.net/
 Prereq:		rc-scripts
+Prereq:		/sbin/chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	nut
 
@@ -37,13 +38,16 @@ identyfikowaæ twojego UPS'a i konfiguracjê kabla.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__install} -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_sbindir}%{_mandir}/man8}
+install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_sbindir}%{_mandir}/man8}
 
-%{__install} powerd detectups $RPM_BUILD_ROOT%{_sbindir}
-%{__install} powerd.8 $RPM_BUILD_ROOT%{_mandir}/man8
-%{__install} %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ups
+install powerd detectups $RPM_BUILD_ROOT%{_sbindir}
+install powerd.8 $RPM_BUILD_ROOT%{_mandir}/man8
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ups
 
 gzip -9nf SUPPORTED Changelog README FAQ TODO
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add ups
@@ -60,9 +64,6 @@ if [ "$1" = "0" ]; then
 	fi
 	/sbin/chkconfig --del ups
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
