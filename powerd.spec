@@ -5,12 +5,12 @@ Version:	2.0.2
 Release:	3
 License:	GPL
 Group:		Networking/Daemons
-Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/power/%{name}-%{version}.tar.gz
 # Source0-md5:	de283f67a1a64dee59d8f52c4c094569
 Source1:	%{name}.init
 URL:		http://power.sourceforge.net/
-Prereq:		rc-scripts
-Prereq:		/sbin/chkconfig
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	nut
 
@@ -42,7 +42,6 @@ install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_sbindir},%{_mandir}/man8}
 install powerd detectups $RPM_BUILD_ROOT%{_sbindir}
 install powerd.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ups
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
