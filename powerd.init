@@ -39,11 +39,10 @@ start() {
 stop() {
 	msg_stopping powerd
 	killproc powerd
-	RETVAL=$?
 	rm -f /var/lock/subsys/powerd
-	return $RETVAL
 }
 
+RETVAL=0
 # See how we were called.
 case "$1" in
   start)
@@ -52,7 +51,6 @@ case "$1" in
 		start
 	else
 		msg_already_running powerd
-		exit 1
 	fi
 	;;
   stop)
@@ -61,25 +59,26 @@ case "$1" in
 		stop
 	else
 		msg_not_running powerd
-		exit 1
 	fi
 	;;
   status)
 	status powerd
+	exit $?
 	;;
-  restart|reload)
+  restart|force-reload)
 	stop
 	start
+	exit $?
 	;;
-  condrestart)
-	if [ -f /var/lock/subsys/powerd ]; then
-		stop
-		start
-	fi
-	;;
+#  condrestart)
+#	if [ -f /var/lock/subsys/powerd ]; then
+#		stop
+#		start
+#	fi
+#	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|condrestart|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL
