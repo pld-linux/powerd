@@ -1,15 +1,15 @@
-#! /bin/sh
+#!/bin/sh
 #
 # pwerdd	Start/Stop James Brents power daemon.
 #
-# chkconfig: 345 75 65
+# chkconfig:	345 75 65
 # description:	The power daemon provides a means of determining when the 
 #               power is off, wether through a serial port connected on 
 #               this machine, or a remote server, and allows the safe 
 #               shutdown of the machine.
-# processname: powerd
-# pidfile: /var/run/powerd.pid
-# config: /etc/powerd.conf
+# processname:	powerd
+# pidfile:	/var/run/powerd.pid
+# config:	/etc/powerd.conf
 
 # Source function library.
 . /etc/init.d/functions
@@ -22,10 +22,6 @@ if [ ${NETWORKING} = "no" ]
 then
 	exit 0
 fi
-
-[ -x /usr/sbin/powerd ] || exit 0
-
-RETVAL=0
 
 start() {
         echo -n "Starting powerd: "
