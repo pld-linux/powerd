@@ -11,8 +11,8 @@ Source1:	%{name}.init
 URL:		http://power.sourceforge.net/
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	nut
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Powerd is an effective power daemon that can monitor a UPS and safely
