@@ -3,13 +3,16 @@ Summary(pl):	Powerd jest programem do monitorowania UPS'ów
 Name:		powerd
 Version:	2.0.2
 Release:	1
-Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
-URL:		http://power.sourceforge.net
 License:	GPL
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
+Source0:	http://ftp1.sourceforge.net/power/%{name}-%{version}.tar.gz
+Source1:	%{name}.init
+URL:		http://power.sourceforge.net/
+Prereq:		rc-scripts
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	nut
 
 %description
 Powerd is an effective power daemon that can monitor a UPS and safely
@@ -25,25 +28,38 @@ w sieci, które mog± nie potrafiæ monitorowaæ serial line, wiêc mog±
 byæ one tak¿e bezpiecznie zamkniête. Demon ten potrafi automatycznie
 identyfikowaæ twojego UPS'a i konfiguracjê kabla.
 
-
 %prep
 %setup -q
 
 %build
 %configure
-%{__make} CFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O0 -g}" 
+%{__make} CFLAGS="%{rpmcflags}" 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-gzip -9nf README COPYING INSTALL TODO
-tar   czf sample.conf.tar.gz powerd.conf*
+%{__install} -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_sbindir}%{_mandir}/man8}
 
-install -d $RPM_BUILD_ROOT%{_sbindir} $RPM_BUILD_ROOT%{_mandir}/man8
+%{__install} powerd detectups $RPM_BUILD_ROOT%{_sbindir}
+%{__install} powerd.8 $RPM_BUILD_ROOT%{_mandir}/man8
+%{__install} %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ups
 
-install  powerd 	$RPM_BUILD_ROOT%{_sbindir}/
-install  detectups 	$RPM_BUILD_ROOT%{_sbindir}/
-install  powerd.8 	$RPM_BUILD_ROOT%{_mandir}/man8
-			
+gzip -9nf SUPPORTED Changelog README FAQ TODO
+
+%post
+/sbin/chkconfig --add ups
+if [ -f /var/lock/subsys/ups ]; then
+	/etc/rc.d/init.d/ups restart >&2
+else
+	echo "Run \"/etc/rc.d/init.d/ups start\" to start powerd ups daemon."
+fi
+
+%preun
+if [ "$1" = "0" ]; then
+	if [ -f /var/lock/subsys/ups ]; then
+		/etc/rc.d/init.d/ups stop >&2
+	fi
+	/sbin/chkconfig --del ups
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
