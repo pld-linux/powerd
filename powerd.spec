@@ -65,4 +65,5 @@ fi
 %defattr(644,root,root,755)
 %doc SUPPORTED Changelog README FAQ TODO
 %attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sysconfdir}/rc.d/init.d/ups
 %{_mandir}/*/*
