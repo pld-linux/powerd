@@ -21,11 +21,11 @@ also safely shutdown. It also has the capability of auto identifying
 your particular UPS and cable configurations.
 
 %description -l pl
-Powerd jest efektywnym demonem, który potrafi monitorowaæ UPS'a oraz
-bezpiecznie zamkn±æ komputer. Potrafi tak¿e zakomunikowaæ inny demonom
-w sieci, które mog± nie potrafiæ monitorowaæ serial line, wiêc mog±
-byæ one tak¿e bezpiecznie zamkniête. Demon ten potrafi automatycznie
-identyfikowaæ twojego UPS'a i konfiguracjê kabla.
+Powerd jest efektywnym demonem, który potrafi monitorowaæ UPS-a oraz
+bezpiecznie zamkn±æ komputer. Potrafi tak¿e zakomunikowaæ innym
+demonom w sieci, które mog± nie potrafiæ monitorowaæ linii szeregowej,
+tak ¿e mog± byæ one tak¿e bezpiecznie zamkniête. Demon ten potrafi
+automatycznie identyfikowaæ UPS-a i konfiguracjê kabla.
 
 %prep
 %setup -q
@@ -65,5 +65,5 @@ fi
 %defattr(644,root,root,755)
 %doc SUPPORTED Changelog README FAQ TODO
 %attr(755,root,root) %{_sbindir}/*
-%attr(755,root,root) %{_sysconfdir}/rc.d/init.d/ups
+%attr(754,root,root) /etc/rc.d/init.d/ups
 %{_mandir}/*/*
