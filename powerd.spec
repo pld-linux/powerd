@@ -1,5 +1,5 @@
 Summary:	Powerd is a UPS monitoring program to safely shutdown unattended
-Summary(pl.UTF-8):   Powerd jest programem do monitorowania UPS-ów
+Summary(pl.UTF-8):	Powerd jest programem do monitorowania UPS-ów
 Name:		powerd
 Version:	2.0.2
 Release:	3
